@@ -10,7 +10,7 @@ WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY ./ ./
 ENV PORT=3000
-ENV HOSTNAME=localhost
+ENV HOSTNAME=0.0.0.0
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV WATCHPACK_POLLING=true
 EXPOSE 3000
