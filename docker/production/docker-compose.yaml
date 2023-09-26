@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  next-app:
+    container_name: next-app-production
+    build:
+      context: ../../
+      dockerfile: docker/production/Dockerfile
+      target: run
+    ports:
+      - 3000:3000
