@@ -11,5 +11,6 @@ COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 ENV PORT=3000
 ENV HOSTNAME=localhost
+ENV NEXT_TELEMETRY_DISABLED=1
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
