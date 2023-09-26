@@ -8,7 +8,7 @@ RUN npm install
 FROM base AS run
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
-COPY . .
+COPY ./ ./
 ENV PORT=3000
 ENV HOSTNAME=localhost
 ENV NEXT_TELEMETRY_DISABLED=1

@@ -8,6 +8,6 @@ services:
       dockerfile: docker/development/Dockerfile
       target: run
     volumes:
-      - ./:/app
+      - ../../:/app
     ports:
       - 3000:3000
