@@ -19,15 +19,14 @@ jobs:
 
     env:
       REGISTRY: ghcr.io
-      NAMESPACE: ${{ github.repository_owner }}
-      IMAGE_NAME: '${{ github.repository }}:${{ inputs.image_environment }}'
+      IMAGE_NAME: ${{ github.repository }}
 
     steps:
       - name: Repository checkout
         uses: actions/checkout@v4
 
       - name: Build image
-        run: docker build --file ./docker/${{ inputs.image_environment }}/Dockerfile --tag ${{ env.IMAGE_NAME }} .
+        run: docker build --file ./docker/${{ inputs.image_environment }}/Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ inputs.image_environment }} .
 
       - name: Login to docker registry
         env:
@@ -36,4 +35,4 @@ jobs:
         run: docker login ${{ env.REGISTRY }} --username ${{ env.LOGIN }} --password ${{ env.PASSWORD }}
 
       - name: Publish image to GitHub Packages
-        run: docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_environment }}
