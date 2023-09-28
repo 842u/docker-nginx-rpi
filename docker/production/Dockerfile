@@ -19,6 +19,11 @@ COPY --from=build /app/.next/static ./.next/static
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+
+LABEL org.opencontainers.image.source=https://github.com/842u/docker-nginx-rpi
+LABEL org.opencontainers.image.description="Production environment image"
+LABEL org.opencontainers.image.licenses=MIT
+
 EXPOSE 3000
 
 CMD ["node", "server.js"]

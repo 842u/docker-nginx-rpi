@@ -13,5 +13,11 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV WATCHPACK_POLLING=true
+
+LABEL org.opencontainers.image.source=https://github.com/842u/docker-nginx-rpi
+LABEL org.opencontainers.image.description="Development environment image"
+LABEL org.opencontainers.image.licenses=MIT
+
 EXPOSE 3000
+
 CMD ["npm", "run", "dev"]
