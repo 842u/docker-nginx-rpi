@@ -28,11 +28,14 @@ jobs:
       - name: Build image
         run: docker build --file ./docker/${{ inputs.image_environment }}/Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ inputs.image_environment }} .
 
-      - name: Login to docker registry
+      - name: Login to registry
         env:
           LOGIN: ${{ github.actor }}
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: docker login ${{ env.REGISTRY }} --username ${{ env.LOGIN }} --password ${{ env.PASSWORD }}
 
-      - name: Publish image to GitHub Packages
+      - name: Tag image
+        run: docker tag ${{ env.IMAGE_NAME }}:${{ inputs.image_environment }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_environment }}
+
+      - name: Publish image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_environment }}
