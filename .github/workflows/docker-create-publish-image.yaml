@@ -25,17 +25,29 @@ jobs:
       - name: Repository checkout
         uses: actions/checkout@v4
 
+      - name: Setup node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Build image
         run: docker build --file ./docker/${{ inputs.image_environment }}/Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ inputs.image_environment }} .
 
       - name: Login to registry
-        env:
-          LOGIN: ${{ github.actor }}
-          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: docker login ${{ env.REGISTRY }} --username ${{ env.LOGIN }} --password ${{ env.PASSWORD }}
+        run: docker login ${{ env.REGISTRY }} --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag image
         run: docker tag ${{ env.IMAGE_NAME }}:${{ inputs.image_environment }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_environment }}
 
       - name: Publish image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.image_environment }}
+
+      - name: Install axios
+        run: rm package.json package-lock.json && npm install axios
+
+      - name: Remove old image versions
+        env:
+          PACKAGE_TYPE: container
+          PACKAGE_NAME: docker-nginx-rpi
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node ./.github/workflows/utils/deletePackages.mjs
