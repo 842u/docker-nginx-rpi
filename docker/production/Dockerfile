@@ -1,4 +1,5 @@
 FROM node:20-alpine AS base
+RUN apk add nginx
 
 FROM base AS dependencies
 WORKDIR /app
@@ -13,17 +14,20 @@ RUN npm run build
 
 FROM base AS run
 WORKDIR /app
+COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/.next/standalone ./
 COPY --from=build /app/public ./public
 COPY --from=build /app/.next/static ./.next/static
+
 ENV NODE_ENV=production
+
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+
+EXPOSE 3000
 
 LABEL org.opencontainers.image.source=https://github.com/842u/docker-nginx-rpi
 LABEL org.opencontainers.image.description="Production environment image"
 LABEL org.opencontainers.image.licenses=MIT
 
-EXPOSE 3000
-
-CMD ["node", "server.js"]
+CMD ["node", "server.js", "&&", "nginx"]
