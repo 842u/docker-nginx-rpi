@@ -1,3 +1,4 @@
+import { AwsIcon } from '@/components/icons/AwsIcon';
 import { DockerIcon } from '@/components/icons/DockerIcon';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { NextIcon } from '@/components/icons/NextIcon';
@@ -25,10 +26,15 @@ export default function Home() {
         image.
       </p>
       <p className="flex flex-col items-center text-xl md:flex-row md:text-2xl">
-        Deployed on
+        Previously deployed on
         <RaspberryPiIcon className="aspect-square h-14 animate-heartbeat md:mx-2 md:h-24" />
         private server via
         <SshIcon className="aspect-square h-14 animate-pulse fill-[antiquewhite] md:mx-2 md:h-24" />
+        .
+      </p>
+      <p className="flex flex-col items-center text-xl md:flex-row md:text-2xl">
+        Currently set up on
+        <AwsIcon className="aspect-square h-14 animate-heartbeat md:mx-4 md:h-24" />
         .
       </p>
       <p className="flex flex-col items-center text-xl md:flex-row md:text-2xl">
