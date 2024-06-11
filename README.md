@@ -2,7 +2,7 @@
 
 This project was built to gain a fundamental understanding of Docker, NGINX, and the development and deployment processes on private remote machines. Initially deployed on a Raspberry Pi private server, it is now hosted on AWS.
 
-[Live demo](http://3.122.110.47)
+[Live demo](http://18.153.112.68)
 
 ## Tools & Technologies
 
